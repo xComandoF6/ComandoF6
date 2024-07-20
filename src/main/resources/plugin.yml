@@ -1,0 +1,15 @@
+name: ComandoF6
+version: '${project.version}'
+main: com.cf6.comandof6.ComandoF6
+
+commands:
+  comandoF6:
+    description: "Comando OP"
+    aliases:
+      - cf6
+  discord:
+    description: "Comando de Discord"
+  chat:
+    description: "Comando Chat"
+  chatall:
+    description: "Comando Chat para todos"
