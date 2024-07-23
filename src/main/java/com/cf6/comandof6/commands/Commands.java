@@ -13,9 +13,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -42,6 +39,7 @@ public class Commands implements CommandExecutor {
 
                     Location location = player.getLocation();
 
+
                     MinecraftServer nmsServer = ((CraftServer) Bukkit.getServer()).getServer();
                     WorldServer nmsWorld = ((CraftWorld) Bukkit.getWorld("lobby")).getHandle();
 
@@ -55,28 +53,19 @@ public class Commands implements CommandExecutor {
                     player.sendMessage("NPC CREADO");
 
                 } else if (args[0].equalsIgnoreCase("prueba")) {
-                    connection.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, npc));
-                    player.sendMessage("Bye");
 
 
                 } else if (args[0].equalsIgnoreCase("prueba2")) {
-                    connection.sendPacket(new PacketPlayOutKickDisconnect(IChatBaseComponent.ChatSerializer.a("bye")));
-                    player.sendMessage("kick");
+
 
 
                 }
                 else if (args[0].equalsIgnoreCase("prueba3")) {
-                    connection.sendPacket(new PacketPlayOutCamera());
-                    player.sendMessage("camara");
+
 
                 }
                 else if (args[0].equalsIgnoreCase("prueba4")) {
-                    if (connection.player == null) {
-                        player.sendMessage("null");
-                    }else {
-                        player.sendMessage("NO null");
 
-                    }
                 }
             } else {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',plugin.prefix+"&cNo tienes permisos para usar ese comando."));
