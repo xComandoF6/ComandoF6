@@ -1,4 +1,4 @@
-package com.cf6.comandof6.prueba;
+package com.cf6.comandof6.xprueba;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

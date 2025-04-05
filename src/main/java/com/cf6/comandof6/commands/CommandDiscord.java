@@ -16,7 +16,8 @@ public class CommandDiscord implements CommandExecutor {
         player.sendMessage(ChatColor.translateAlternateColorCodes('&',""));
         player.sendMessage(ChatColor.translateAlternateColorCodes('&',"           &6✸&8&l『&7&lDISCORD &3&lLINK&8&l』&6✸"));
         player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&8══════════════════════"));
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&',"     &5&nhttps://discord.gg/djKyQWY5vN"));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&',"     &c&lESTE LINK SE ENCUENTRA OCULTO"));
+        //player.sendMessage(ChatColor.translateAlternateColorCodes('&',"     &5&nhttps://discord.gg/djKyQWY5vN"));
         player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&8══════════════════════"));
         return false;
     }

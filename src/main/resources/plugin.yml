@@ -1,6 +1,10 @@
 name: ComandoF6
-version: '${project.version}'
+version: 1.0
 main: com.cf6.comandof6.ComandoF6
+
+depend:
+  - LuckPerms
+  - WorldGuard
 
 commands:
   comandoF6:

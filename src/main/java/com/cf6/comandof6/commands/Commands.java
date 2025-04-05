@@ -1,26 +1,22 @@
 package com.cf6.comandof6.commands;
 
 import com.cf6.comandof6.ComandoF6;
-import com.cf6.comandof6.prueba.Scoreboard;
-import com.mojang.authlib.GameProfile;
+import com.cf6.comandof6.nms.MobNMS;
+import com.cf6.comandof6.scoreboard.ScoreboardCF6;
+import com.cf6.comandof6.xprueba.Scoreboard;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-
-import java.util.UUID;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
 
 public class Commands implements CommandExecutor {
-    private ComandoF6 plugin;
-    private EntityPlayer npc;
-    private PlayerConnection connection;
+    private final ComandoF6 plugin;
+
     public Commands (ComandoF6 plugin) {
         this.plugin = plugin;
     }
@@ -33,38 +29,34 @@ public class Commands implements CommandExecutor {
         if (args.length >= 1) {
             if (player.isOp()) {
                 if (args[0].equalsIgnoreCase("sb")) {
-                    Scoreboard.crearScoreBoardMGIniciar(player);
-                    player.sendMessage(plugin.prefix + "Create SB");
-                } else if (args[0].equalsIgnoreCase("entity")) {
-
-                    Location location = player.getLocation();
-
-
-                    MinecraftServer nmsServer = ((CraftServer) Bukkit.getServer()).getServer();
-                    WorldServer nmsWorld = ((CraftWorld) Bukkit.getWorld("lobby")).getHandle();
-
-                    GameProfile gameProfile = new GameProfile(UUID.randomUUID(), "SPAWN");
-                    npc = new EntityPlayer(nmsServer, nmsWorld, gameProfile, new PlayerInteractManager(nmsWorld));
-                    npc.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
-
-                    connection = ((CraftPlayer)player).getHandle().playerConnection;
-                    connection.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, npc));
-                    connection.sendPacket(new PacketPlayOutNamedEntitySpawn(npc));
-                    player.sendMessage("NPC CREADO");
-
-                } else if (args[0].equalsIgnoreCase("prueba")) {
-
+                    if (plugin.getNoScoreboard().contains(player.getName())) {
+                        plugin.getNoScoreboard().remove(player.getName());
+                        ScoreboardCF6.crearScoreBoardPrincipal(player,plugin);
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&',plugin.prefix + "Create SB"));
+                    } else {
+                        plugin.getNoScoreboard().add(player.getName());
+                        org.bukkit.scoreboard.Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+                        Objective objective = scoreboard.registerNewObjective("Null", "yummy");
+                        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+                        player.setScoreboard(scoreboard);
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&',plugin.prefix + "Remove SB"));
+                    }
+                }  else if (args[0].equalsIgnoreCase("prueba")) {
+                    for (String p : plugin.getNoScoreboard()) {
+                        player.sendMessage("::: "+p);
+                    }
 
                 } else if (args[0].equalsIgnoreCase("prueba2")) {
 
+                } else if (args[0].equalsIgnoreCase("prueba3")) {
 
 
-                }
-                else if (args[0].equalsIgnoreCase("prueba3")) {
 
 
-                }
-                else if (args[0].equalsIgnoreCase("prueba4")) {
+                } else if (args[0].equalsIgnoreCase("prueba4")) {
+                    EntityLiving golem = MobNMS.golem;
+                    golem.die();
+
 
                 }
             } else {
@@ -75,4 +67,6 @@ public class Commands implements CommandExecutor {
         }
         return false;
     }
+
+
 }
